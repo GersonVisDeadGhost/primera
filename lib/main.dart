@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:primera/Pantallas/Datos.dart';
 import 'package:primera/Pantallas/cambio.dart';
+import 'package:primera/Pantallas/login.dart';
+import 'package:primera/Pantallas/login2.dart';
 import 'package:primera/Pantallas/splash.dart';
 import 'Pantallas/inicio.dart';
 
@@ -12,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Comida rapida",
-      home: Cambio(),
+      home: Splash(),
     );
   }
 }

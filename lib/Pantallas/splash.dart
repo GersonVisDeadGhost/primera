@@ -8,14 +8,19 @@ class Splash extends StatelessWidget {
     return MaterialApp(
         title: "splash",
         home: Scaffold(
-          body: Container(
-            child: Container(
-              decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                image: new AssetImage('assets/Imagenes/fastFood.png'),
-                fit: BoxFit.cover,
-              )),
-            ),
+          body: PageView(
+            children: <Widget>[
+              Container(
+                child: Container(
+                  decoration: new BoxDecoration(
+                      image: new DecorationImage(
+                    image: new AssetImage('assets/Imagenes/fastFood.png'),
+                    fit: BoxFit.cover,
+                  )),
+                ),
+              ),
+              Inicio(),
+            ],
           ),
         ));
   }
