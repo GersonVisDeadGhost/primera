@@ -1,22 +1,45 @@
+// ignore: todo
+// TODO Implement this library.
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:primera/Pantallas/Datos.dart';
-import 'package:primera/Pantallas/cambio.dart';
-import 'package:primera/Pantallas/login.dart';
-import 'package:primera/Pantallas/login2.dart';
-import 'package:primera/Pantallas/splash.dart';
+import 'package:primera/Screems/sinup.dart';
+import 'package:provider/provider.dart';
+import 'Providers/UserPrv.dart';
+import 'Pantallas/cambio.dart';
 import 'Pantallas/inicio.dart';
+import 'Pantallas/login.dart';
+import 'Pantallas/principal.dart';
+import 'Pantallas/login.dart';
+import 'Pantallas/splash.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserPrv()),
+      ],
+      child: App(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Comida rapida",
-      home: Splash(),
+      //debugShowCheckedModeBanner: false,
+      home: Scaffold(
+          body: PageView(
+        children: <Widget>[
+          Splash(),
+          Inicio(),
+          /*Cambio(),
+          Login(),
+          Datos(),
+          Principal(),*/
+        ],
+      )),
     );
   }
 }

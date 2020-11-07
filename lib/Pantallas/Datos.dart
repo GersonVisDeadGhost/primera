@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:primera/Pantallas/Datos.dart';
 import 'package:primera/Pantallas/login.dart';
+import 'package:primera/models/user.dart';
 
 class Datos extends StatefulWidget {
   const Datos({Key key}) : super(key: key);
@@ -11,13 +13,14 @@ class Datos extends StatefulWidget {
 }
 
 class _DatosState extends State<Datos> {
+  User usr = User();
   String strNombre = '';
   final tec1 = TextEditingController();
   final tec2 = TextEditingController();
   final tec3 = TextEditingController();
   final tec4 = TextEditingController();
   final tec5 = TextEditingController();
-  @override
+
   void dispose() {
     tec1.dispose();
     tec2.dispose();
@@ -27,6 +30,9 @@ class _DatosState extends State<Datos> {
     super.dispose();
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
@@ -43,6 +49,7 @@ class _DatosState extends State<Datos> {
       ),
       body: SingleChildScrollView(
           child: Form(
+        key: _formKey,
         child: Column(
           children: <Widget>[
             Container(
@@ -80,7 +87,11 @@ class _DatosState extends State<Datos> {
                                   child: FractionallySizedBox(
                                     heightFactor: .8,
                                     widthFactor: .9,
-                                    child: TextField(
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        usr.Nombre = value;
+                                        return '';
+                                      },
                                       controller: tec1,
                                       decoration: InputDecoration(
                                         hoverColor: Colors.white,
@@ -102,7 +113,15 @@ class _DatosState extends State<Datos> {
                                   child: FractionallySizedBox(
                                     heightFactor: .8,
                                     widthFactor: .9,
-                                    child: TextField(
+                                    child: TextFormField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.deny(
+                                            RegExp(r'[\ ]'))
+                                      ],
+                                      validator: (value) {
+                                        usr.Correo = value;
+                                        return '';
+                                      },
                                       controller: tec2,
                                       decoration: InputDecoration(
                                         hoverColor: Colors.white,
@@ -124,7 +143,14 @@ class _DatosState extends State<Datos> {
                                   child: FractionallySizedBox(
                                     heightFactor: .8,
                                     widthFactor: .9,
-                                    child: TextField(
+                                    child: TextFormField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      validator: (value) {
+                                        usr.Numero = value;
+                                        return '';
+                                      },
                                       controller: tec3,
                                       decoration: InputDecoration(
                                         hoverColor: Colors.white,
@@ -146,7 +172,22 @@ class _DatosState extends State<Datos> {
                                   child: FractionallySizedBox(
                                     heightFactor: .8,
                                     widthFactor: .9,
-                                    child: TextField(
+                                    child: TextFormField(
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp(r'[a-zA-Z]|[\ ]'))
+                                      ],
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Ingresa tu nombre';
+                                        }
+                                        if (value
+                                            .contains(new RegExp(r'[0-9]'))) {
+                                          return 'No puedes ingresar números';
+                                        }
+                                        usr.Contra = value;
+                                        return '';
+                                      },
                                       controller: tec4,
                                       decoration: InputDecoration(
                                         hoverColor: Colors.white,
@@ -168,7 +209,7 @@ class _DatosState extends State<Datos> {
                                   child: FractionallySizedBox(
                                     heightFactor: .8,
                                     widthFactor: .9,
-                                    child: TextField(
+                                    child: TextFormField(
                                       controller: tec5,
                                       decoration: InputDecoration(
                                         hoverColor: Colors.white,
@@ -192,7 +233,10 @@ class _DatosState extends State<Datos> {
                                 color: Color.fromARGB(255, 252, 79, 50),
                                 borderRadius: BorderRadius.circular(12)),
                             child: TextButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  return;
+                                }
                                 tec1.text = '';
                                 tec2.text = '';
                                 tec3.text = '';

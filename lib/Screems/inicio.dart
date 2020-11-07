@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primera/Pantallas/login.dart';
+import 'package:primera/Screems/login.dart';
 
 class Inicio extends StatelessWidget {
   @override
@@ -12,12 +12,12 @@ class Inicio extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: AssetImage('assets/Imagenes/balloon-shape.png')),
+            Image(image: AssetImage('assets/image/balloon-shape.png')),
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Image(
-                  image: AssetImage('assets/Imagenes/FastFood-Logo.png'),
+                  image: AssetImage('assets/image/FastFood-Logo.png'),
                 ),
               ),
             ),
@@ -25,7 +25,7 @@ class Inicio extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 0),
                 child: Image(
-                    image: AssetImage('assets/Imagenes/online_groceries.png')),
+                    image: AssetImage('assets/image/online_groceries.png')),
               ),
             ),
             Center(
@@ -66,26 +66,26 @@ class Inicio extends StatelessWidget {
               ),
             ),
             Expanded(
-                child: Center(
-              child: FractionallySizedBox(
-                  heightFactor: .4,
-                  widthFactor: .9,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 252, 79, 50),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: TextButton(
+              child: Center(
+                  child: Row(children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0)),
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => Login()));
                       },
-                      child: Text(
-                        'INICiAR AHORA',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+                      color: Color.fromARGB(255, 255, 151, 0),
+                      child: Text('INICIA AHORA',
+                          style: TextStyle(color: Colors.white)),
                     ),
-                  )),
-            ))
+                  ),
+                ),
+              ])),
+            )
           ],
         ),
       )),
